@@ -5,19 +5,19 @@ export function tasksRepo() {
   const prisma = new PrismaClient();
   
   return {
-    getAllTasks: async () => await prisma.task.findMany({orderBy: {
+    findAll: async () => await prisma.task.findMany({orderBy: {
       createdAt: 'asc'
     }}),
-    getOneTask: async (id: string) => await prisma.task.findUnique({
+    findOne: async (id: string) => await prisma.task.findUnique({
       where: {id}
     }),
-    createTask: async (taskName: string) => await prisma.task.create({
+    create: async (taskName: string) => await prisma.task.create({
       data: {
         id: uuidv4(),
         taskName,
         isDone: false
     }}),
-    updateTask: async (id: string, done: boolean) => await prisma.task.update({
+    update: async (id: string, done: boolean) => await prisma.task.update({
       where: { id },
       data: {
         isDone: !done
