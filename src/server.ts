@@ -14,14 +14,14 @@ export interface Task {
   taskName: string
 }
 
-let tasks : Task[] = []
-
 
 app.use(express.json());
 app.use(cors({origin: 'http://localhost:5173'}))
 
 app.get('/tasks', async (request: Request, response: Response) => {
-  const allTasks = await prisma.task.findMany();
+  const allTasks = await prisma.task.findMany({orderBy: {
+    createdAt: 'asc'
+  }});
 
   return response.json(allTasks);
 })
